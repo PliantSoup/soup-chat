@@ -1,16 +1,14 @@
-# soup_messenger
+# Soup Messenger
 
-A new Flutter project.
+Simple secure P2P chat.
 
-## Getting Started
+## Description
 
-This project is a starting point for a Flutter application.
+This project is a multi-platform P2P chat written on Flutter/Dart.
 
-A few resources to get you started if this is your first Flutter project:
+## Features
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- P2P connection.
+- Masking host IP with edible ingredients.
+- Data encryption.
+- Data compression.
