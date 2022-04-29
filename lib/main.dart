@@ -4,8 +4,7 @@ import 'package:soup_messenger/utils/custom_colors.dart';
 import 'package:soup_messenger/utils/ip_cooker.dart' as IPCooker;
 
 void main() async {
-  //await IPCooker.saveFood();
-  await IPCooker.cookIp(await IPCooker.getIp());
+  print(IPCooker.port);
   runApp(
     const MyApp(),
   );

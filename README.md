@@ -1,4 +1,4 @@
-# Soup Messenger
+# Soup Chat
 
 Simple secure P2P chat.
 

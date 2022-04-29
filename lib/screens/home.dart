@@ -23,7 +23,7 @@ class HomePageState extends State<HomePage> {
   }
 
   void main() async {
-    ip = await Network.getIp();
+    ip = await Network.ip;
   }
 
   @override

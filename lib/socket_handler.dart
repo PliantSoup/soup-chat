@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:soup_messenger/utils/ip_cooker.dart' as GetIP;
+import 'package:soup_messenger/utils/ip_cooker.dart' as IPCooker;
 
 class SocketHandler {
   final TextEditingController ip = TextEditingController();
@@ -22,7 +22,7 @@ class SocketHandler {
   static void initState() async {}
   void startServer() async {
     print("Starting server");
-    server = await ServerSocket.bind(InternetAddress.anyIPv4, GetIP.port());
+    server = await ServerSocket.bind(InternetAddress.anyIPv4, IPCooker.port);
     server.listen((client) => handleConnection(client));
   }
 
@@ -48,7 +48,7 @@ class SocketHandler {
   }
 
   Future<Socket> connectServer(String address) async {
-    socket = await Socket.connect(address, GetIP.port());
+    socket = await Socket.connect(address, IPCooker.port);
     print('Connected to: ${socket.remoteAddress.address}:${socket.remotePort}');
 
     socket.listen(
