@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:soup_messenger/utils/ip_cooker.dart' as IPCooker;
+import 'package:soup_messenger/utils/message_converter.dart';
 
 class SocketHandler {
   final TextEditingController ip = TextEditingController();
@@ -15,7 +16,7 @@ class SocketHandler {
   late Socket clientSocket;
 
   //final VoidCallback callback;
-  final Function(String) callback;
+  final Function(String, String) callback;
 
   SocketHandler({Key? key, required this.callback});
 
@@ -32,9 +33,10 @@ class SocketHandler {
 
     client.listen(
       (Uint8List data) async {
-        final message = String.fromCharCodes(data);
-        callback(message);
-        print(message);
+        final clientResponse = String.fromCharCodes(data);
+        final json = messageConverterFromJson(clientResponse);
+        callback(json.sender, json.message);
+        print(json.message);
       },
       onError: (error) {
         print(error);
@@ -54,8 +56,9 @@ class SocketHandler {
     socket.listen(
       (Uint8List data) {
         final serverResponse = String.fromCharCodes(data);
-        callback(serverResponse);
-        print(serverResponse);
+        final json = messageConverterFromJson(serverResponse);
+        callback(json.sender, json.message);
+        print(json.message);
       },
       onError: (error) {
         print(error);
@@ -69,13 +72,17 @@ class SocketHandler {
     return socket;
   }
 
-  Future<void> returnMessage(String message) async {
-    clientSocket.write(message);
-    callback(message);
+  Future<void> returnMessage(String sender, String message) async {
+    final json = messageConverterToJson(MessageConverter(message: message, sender: sender));
+
+    clientSocket.write(json);
+    callback(sender, message);
   }
 
-  Future<void> sendMessage(String message) async {
-    socket.write(message);
-    callback(message);
+  Future<void> sendMessage(String sender, String message) async {
+    final json = messageConverterToJson(MessageConverter(message: message, sender: sender));
+
+    socket.write(json);
+    callback(sender, message);
   }
 }

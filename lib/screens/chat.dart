@@ -19,8 +19,8 @@ class ChatPage extends StatefulWidget {
 class ChatPageState extends State<ChatPage> {
   final ScrollController _scrollController = ScrollController();
   late List<MessageBox> messages = List.empty();
-  late SocketHandler _handler = SocketHandler(callback: (String message) {
-    addMessage("sender", message);
+  late SocketHandler _handler = SocketHandler(callback: (String sender, String message) {
+    addMessage(sender, message);
     setState(() {});
   });
 
@@ -90,9 +90,9 @@ class ChatPageState extends State<ChatPage> {
                 FloatingActionButton(
                   onPressed: () {
                     if (!widget.isHost) {
-                      _handler.sendMessage(_handler.msg.text);
+                      _handler.sendMessage(widget.username, _handler.msg.text);
                     } else {
-                      _handler.returnMessage(_handler.msg.text);
+                      _handler.returnMessage(widget.username, _handler.msg.text);
                     }
                     _handler.msg.clear();
                     setState(() {});
